@@ -1,0 +1,458 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex, nofollow"></head><body><title>Fauché, site cible</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700&display=swap">
+<style>
+/* Wireframe classique, convention Brique (Synelis, FCTP) : niveaux de gris, titres DM Serif Display, texte Inter,
+   emplacements d'image gris arrondis. Menu calqué sur fauche.com : barre utilitaire, puis Expertises, Marchés (nouveau),
+   Réalisations, Offres spécifiques, Rejoignez-nous, Actualités, À propos. Encadrés « Note » en pointillés, masquables. */
+:root{
+  --black:#111; --white:#fff; --g50:#F5F5F5; --g100:#F0F0F0; --g200:#E8E8E8; --g300:#E0E0E0;
+  --g400:#999; --g500:#666; --g600:#333;
+  --f-serif:"DM Serif Display", Georgia, serif; --f-sans:"Inter", system-ui, sans-serif;
+  --f-mono:ui-monospace, Menlo, monospace; --w:1200px; color-scheme:light;
+}
+*{box-sizing:border-box}
+body{background:var(--white);color:var(--g600);font-family:var(--f-sans);font-size:15px;line-height:1.55;margin:0;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+h1,h2,h3,h4{font-family:var(--f-serif);font-weight:400;color:var(--black);line-height:1.15;text-wrap:balance;margin:0}
+.wrap{max-width:var(--w);margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+/* En-tête */
+.util{background:var(--g100);font-size:12px;color:var(--g500);border-bottom:1px solid var(--g300)}
+.util .wrap{display:flex;justify-content:flex-end;align-items:center;gap:20px;flex-wrap:wrap;padding-block:7px}
+.util .pill{border:1px solid var(--g400);border-radius:999px;padding:1px 10px}
+header.site{background:var(--white);border-bottom:1px solid var(--g300);position:sticky;top:env(safe-area-inset-top,0px);z-index:20}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--white)}
+header.site .wrap{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;padding-block:14px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--black);font-weight:700;letter-spacing:.14em;font-size:15px}
+.logo b{width:44px;height:30px;border-radius:6px;background:var(--g200);display:grid;place-items:center;font-size:10px;color:var(--g400);font-weight:500;letter-spacing:0}
+nav.main{display:flex;gap:2px;flex-wrap:wrap;align-items:center}
+nav.main>div{position:relative}
+nav.main a.top,nav.main button.top{font:inherit;font-size:14px;font-weight:500;color:var(--g600);background:none;border:0;padding:8px 11px;border-radius:8px;cursor:pointer;text-decoration:none;display:flex;align-items:center;gap:6px}
+nav.main a.top:hover,nav.main button.top:hover,nav.main .open>button.top{background:var(--g100);color:var(--black)}
+nav.main .new{font-size:10px;border:1px dashed var(--g400);border-radius:999px;padding:0 6px;color:var(--g500)}
+.drop{position:absolute;left:0;top:calc(100% + 6px);background:var(--white);border:1px solid var(--g300);border-radius:14px;box-shadow:0 14px 34px rgba(0,0,0,.08);padding:18px;display:none;z-index:40;min-width:260px}
+.drop.mega{min-width:620px;grid-template-columns:repeat(3,1fr);gap:14px 26px}
+.open>.drop{display:grid}
+.drop .col{display:flex;flex-direction:column;gap:2px;min-width:0}
+.drop a{text-decoration:none;color:var(--black);font-size:14px;padding:4px 0}
+.drop a.h{font-weight:600}
+.drop a.sub{color:var(--g500);font-size:13px;padding-left:12px;border-left:1px solid var(--g300)}
+.drop a:hover{text-decoration:underline}
+.drop .foot{grid-column:1/-1;border-top:1px solid var(--g200);padding-top:10px;font-size:13px}
+.cta{display:inline-block;background:var(--black);color:var(--white);font:inherit;font-size:14px;font-weight:500;border-radius:999px;padding:10px 20px;text-decoration:none;border:0;cursor:pointer}
+.cta.teal{background:var(--white);color:var(--black)}
+.cta.ghost{background:var(--white);color:var(--black);border:1px solid var(--black)}
+
+/* Note Brique Lab */
+.note{background:var(--g50);border:1.5px dashed var(--g400);border-radius:14px;margin-block:20px;padding:16px 20px;color:var(--g600)}
+.note .tag{font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--g500)}
+.note h4{font-size:22px;margin:4px 0 8px}
+.note p{margin:0 0 8px;max-width:78ch}
+.note dl{display:grid;grid-template-columns:max-content 1fr;gap:4px 16px;margin:8px 0 0;font-size:14px}
+.note dt{font-weight:600;color:var(--black)}
+.note dd{margin:0;min-width:0}
+.note .vol{font-family:var(--f-mono);font-size:13px;white-space:nowrap}
+.note table{border-collapse:collapse;font-size:14px;width:100%;margin-top:6px}
+.note td,.note th{border-bottom:1px solid var(--g300);padding:6px 10px 6px 0;text-align:left;vertical-align:top}
+.note th{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--g500);font-weight:600}
+.note .scroll{overflow-x:auto}
+.badge{display:inline-block;border-radius:999px;padding:1px 10px;font-size:12px;font-weight:600;white-space:nowrap;border:1px solid var(--g400);color:var(--g600);background:var(--white)}
+.b-keep{border-style:solid}
+.b-new{background:var(--black);color:var(--white);border-color:var(--black)}
+.b-res{border-style:dashed}
+.b-map{background:var(--g200)}
+.hide-notes .note{display:none}
+.notes-toggle{position:fixed;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:50;background:var(--black);color:var(--white);border:0;border-radius:999px;padding:10px 16px;font:inherit;font-size:13px;font-weight:500;box-shadow:0 6px 18px rgba(0,0,0,.18);cursor:pointer}
+.notes-toggle:focus-visible,.cta:focus-visible,nav.main button.top:focus-visible,a:focus-visible,summary:focus-visible{outline:2px solid var(--black);outline-offset:2px}
+
+/* Gabarits */
+.crumb{font-size:13px;color:var(--g400);padding-block:14px}
+.crumb a{color:var(--g600);text-decoration:none}
+.hero{position:relative;background:var(--g200);color:var(--black);min-height:320px;display:flex;align-items:flex-end;border-radius:0}
+.hero .wrap{width:100%;padding-block:48px}
+.hero .ph-tag{position:absolute;right:16px;top:12px;font-size:13px;color:var(--g400)}
+.hero h1{font-size:clamp(34px,5vw,58px)}
+.hero p{max-width:60ch;color:var(--g500);margin:12px 0 0}
+.hero.small{min-height:220px}
+.lead{color:var(--black);font-size:20px;max-width:62ch;padding-block:36px;margin:0}
+section.blk{padding-block:44px}
+.seo{display:inline-flex;align-items:center;gap:6px;font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--g500);border:1px solid var(--g300);background:var(--white);border-radius:6px;padding:2px 8px;margin-bottom:10px}
+.seo b{color:var(--black);font-weight:600}
+.q{display:inline-block;font-family:var(--f-mono);font-size:11px;font-weight:600;color:var(--white);background:var(--g500);border-radius:5px;padding:1px 6px;vertical-align:middle;letter-spacing:0}
+.blk.blue .seo,.blk.teal .seo{background:transparent}
+.blk.blue .seo{color:#bbb;border-color:#555}.blk.blue .seo b{color:#fff}
+.hero .seo{position:absolute;left:max(16px,env(safe-area-inset-left,0px));top:12px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px}
+.kpis div{border:1px solid var(--g300);border-radius:14px;padding:18px;background:var(--white)}
+.kpis strong{display:block;font-family:var(--f-serif);font-size:34px;color:var(--black);font-weight:400}
+.kpis span{font-size:13px;color:var(--g500)}
+.logos{display:flex;flex-wrap:wrap;gap:12px}
+.logos span{width:120px;height:64px;border-radius:10px;background:var(--g200);display:grid;place-items:center;font-size:12px;color:var(--g400)}
+.brief{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px 24px;border:1px solid var(--g300);border-radius:14px;padding:18px 20px;margin-bottom:36px}
+.brief dt{font-size:12px;color:var(--g500);text-transform:uppercase;letter-spacing:.06em}
+.brief dd{margin:2px 0 0;color:var(--black);font-weight:500}
+section.blk.alt,section.blk.teal{background:var(--g50)}
+section.blk.blue{background:var(--black);color:var(--g300)}
+.blk h2{font-size:clamp(26px,3.4vw,36px);margin-bottom:18px}
+.blue h2{color:var(--white)}
+.lorem{color:var(--g500);max-width:68ch}
+.grid{display:grid;gap:20px;grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
+.grid.g3{grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
+.card{background:var(--white);border:1px solid var(--g300);border-radius:16px;overflow:hidden;text-decoration:none;display:flex;flex-direction:column;min-width:0}
+.card:hover{border-color:var(--g500)}
+.card .img{aspect-ratio:16/10;background:var(--g200);display:grid;place-items:center;color:var(--g400);font-size:14px;max-width:100%;padding:12px;text-align:center}
+.card .bd{padding:14px 16px 18px;display:flex;flex-direction:column;gap:6px;align-items:flex-start}
+.card h3{font-size:21px}
+.card .meta{font-size:13px;color:var(--g400)}
+.card .go{font-size:14px;color:var(--black);text-decoration:underline;margin-top:auto}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{display:inline-block;border:1px solid var(--g400);color:var(--black);border-radius:999px;padding:6px 14px;font-size:14px;text-decoration:none;background:var(--white)}
+.chip:hover{border-color:var(--black)}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:28px}
+.cols>div{min-width:0}
+ul.arrows{list-style:none;padding:0;margin:0}
+ul.arrows li{padding:4px 0 4px 18px;position:relative}
+ul.arrows li::before{content:"→";position:absolute;left:0;color:var(--g400)}
+ul.arrows a{color:var(--black);text-decoration:underline}
+details.faq{border-bottom:1px solid var(--g300);padding-block:14px}
+details.faq summary{color:var(--black);cursor:pointer;font-weight:500}
+details.faq p{color:var(--g500);margin:8px 0 0}
+.region h3{font-size:22px;margin:0 0 8px}
+.region h4{font-family:var(--f-sans);font-size:12px;color:var(--g400);text-transform:uppercase;letter-spacing:.06em;margin:12px 0 4px;font-weight:600}
+.mapph{aspect-ratio:16/9;max-width:100%;background:var(--g200);border-radius:16px;display:grid;place-items:center;color:var(--g400);font-size:14px;text-align:center;padding:16px}
+.contact{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;align-items:center}
+.tel{font-family:var(--f-serif);font-size:30px;color:var(--black)}
+.fake-field{border:1px solid var(--g300);border-radius:10px;padding:10px 14px;color:var(--g400);font-size:14px;margin-bottom:10px;background:var(--white)}
+.facts{display:grid;grid-template-columns:max-content 1fr;gap:6px 18px}
+.facts dt{font-weight:600;color:var(--black)}
+.facts dd{margin:0}
+footer.site{background:var(--g100);border-top:1px solid var(--g300);font-size:13px;color:var(--g500)}
+footer.site .wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;padding-block:32px}
+footer.site b{color:var(--black);font-weight:600}
+.tree{font-size:15px;list-style:none;padding:0;margin:0}
+.tree ul{list-style:none;padding-left:22px;margin:4px 0 4px 8px;border-left:1px solid var(--g300)}
+.tree li{padding:3px 0}
+.tree a{color:var(--black);font-weight:600;text-decoration:none}
+.tree a:hover{text-decoration:underline}
+.tree .u{font-family:var(--f-mono);font-size:12px;color:var(--g400);margin-left:8px}
+.tree .badge{margin-left:8px}
+.legend{display:flex;flex-wrap:wrap;gap:10px;font-size:13px;margin-top:16px}
+@media (max-width:860px){
+  .drop,.drop.mega{position:static;min-width:0;grid-template-columns:1fr;box-shadow:none;margin-top:6px}
+  nav.main{width:100%}
+  .note dl{grid-template-columns:1fr}
+  .tree .u{display:block;margin-left:0}
+}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+</style>
+
+<div class="util"><div class="wrap"><a href="#annuaire" style="text-decoration:none;font-weight:600;color:var(--black)">Trouver une agence</a><span>Nous rejoindre</span><span>Nous contacter</span><span>24/7 Urgence</span><span class="pill">Actionnaires</span><span>[Recherche]</span></div></div>
+<header class="site"><div class="wrap">
+  <a class="logo" href="#accueil"><b>[Logo]</b>FAUCHÉ</a>
+  <nav class="main" id="nav"></nav>
+</div></header>
+
+<main id="view"></main>
+
+<footer class="site"><div class="wrap">
+  <div><b>Groupe Fauché</b><br>Adresse du siège<br>00000 Ville</div>
+  <div><b>Expertises</b><br>Électricité · Génie climatique · Maintenance · Nucléaire · Éco-énergies…</div>
+  <div><b>Le groupe</b><br>Nous connaître · Sociétés du groupe · Actualités · Rejoignez-nous</div>
+  <div><b>Maquette filaire</b><br>Réunion du 9 novembre 2026. Textes provisoires (faux texte), photos à venir.<br><a href="#plan">Plan du site</a></div>
+</div></footer>
+
+<button class="notes-toggle" id="toggle" type="button" aria-pressed="false">Masquer les notes</button>
+
+<script>
+const L = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
+const L2 = "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.";
+const S = {keep:["Existante, conservée","b-keep"], new:["À créer, matière publiée","b-new"], res:["À créer, sous réserve","b-res"], att:["Existante, rattachée","b-keep"], nouv:["Nouvelle page","b-new"]};
+
+// Marchés (proposition de huit ; réalisations publiées, sans doublon)
+const MARCHES = [
+ {id:"tertiaire",t:"Tertiaire et immobilier",n:70,dom:"immobilier, bureaux, immeubles de bureaux, local commercial, centres commerciaux, hôtel, cinéma",exp:["electricite","genie-climatique","maintenance","digital-smart-solutions","tous-corps-etat"]},
+ {id:"logement",t:"Logement",n:18,dom:"logements",exp:["electricite","genie-climatique","tous-corps-etat"]},
+ {id:"industrie",t:"Industrie",n:24,dom:"industrie, agroalimentaire, automobile, chimie, vinicole, levage, entrepôts logistiques, sidérurgie, minière",exp:["electricite","process-automatismes-industriels","maintenance","ponts-roulants"]},
+ {id:"energie-nucleaire",t:"Énergie et nucléaire",n:10,dom:"nucléaire-industrie, nucléaire, énergie",exp:["nucleaire","electricite","maintenance"]},
+ {id:"energies-renouvelables",t:"Énergies renouvelables et solaire",n:5,dom:"photovoltaïque, énergies renouvelables, borne de recharge",exp:["eco-energies","ombrieres","bornes"]},
+ {id:"sante",t:"Santé",n:9,dom:"établissements de santé",exp:["electricite","genie-climatique","maintenance"]},
+ {id:"transport",t:"Transport et infrastructures",n:11,dom:"infrastructure, gare, station de métro, parking, installations portuaires, activités navales et portuaires, aéroport",exp:["electricite","surete","bornes","ombrieres"]},
+ {id:"collectivites",t:"Collectivités, éducation, sport et loisirs",n:25,dom:"ministères et collectivités, éducation, tourisme et loisirs, loisirs, infrastructure sportive, centre d'entraînement",exp:["electricite","eclairage-public","surete","genie-climatique"]}
+];
+
+// Expertises et sous-expertises
+const EXP = [
+ {id:"electricite",url:"/electricite/",t:"Électricité",st:"keep",subs:["surete","bornes","eclairage-public"],m:["tertiaire","industrie","collectivites","transport"],
+  role:"Page du cœur de métier déclaré au brief du 22/07. Elle présente toutes les prestations électriques aux entreprises et mène à ses trois sous-pages, aux réalisations et aux agences qui opèrent l'électricité.",
+  req:[["entreprise génie électrique","40","50, 20, 10"]],serp:"Prestataires : Eiffage, Gérard Perrier, ÉS, Sogetrel, PME",geo:"Nationale",
+  plus:"La requête ne résume pas le métier : la page couvre les prestations réelles. Les gros volumes de l'électricité (« entreprise électricité » 12 100, « électricien industriel » 880) montrent des annuaires, des artisans ou de l'emploi : écartés de cette page. « Entreprise électricité industrielle » (260) peut porter une section de la page ou une sous-page."},
+ {id:"surete",url:"/electricite/surete-controle-acces-videosurveillance/",t:"Sûreté, contrôle d'accès et vidéosurveillance",st:"new",parent:"electricite",sis:"bornes",m:["tertiaire","collectivites","transport"],
+  role:"Une trentaine de réalisations publiées comptent le contrôle d'accès ou la vidéosurveillance parmi leurs lots (dont Ville de Montauban et ATI Isolation). La page rend visible une prestation déjà réalisée. Reste à confirmer l'offre vendue et l'entité qui la porte. Une ou deux pages selon l'offre.",
+  req:[["contrôle d'accès entreprise","170","40, 30, 90"],["vidéosurveillance entreprise","320","170, 110, 140"]],serp:"Contrôle d'accès : installateurs, logiciels, définitions. Vidéosurveillance : réglementation du travail (CNIL) en tête",geo:"Contrôle d'accès : nationale. Vidéosurveillance : semi-nationale",
+  plus:"Les pages de première page ont des questions fréquentes (sept chez Fiducial, sur le RGPD et la CNIL)."},
+ {id:"bornes",url:"/electricite/bornes-de-recharge-entreprise/",t:"Bornes de recharge pour entreprises",st:"new",parent:"electricite",sis:"surete",m:["transport","energies-renouvelables","tertiaire"],
+  role:"4 réalisations publiées citent des bornes de recharge, pour 3 chantiers (Medelpharm, un hôtel, le parking La Rose à Marseille), et Fauché détient la qualification IRVE sans page qui en parle. Périmètre à confirmer : installation, maintenance, exploitation.",
+  req:[["borne de recharge entreprise","320","110, 70, 110"]],serp:"Énergéticiens et opérateurs de recharge (TotalEnergies, EDF, Chargemap), obligations",geo:"Semi-nationale",
+  plus:"Suite reprise partout en première page : obligation, aides ADVENIR, étapes, coût, installateur IRVE."},
+ {id:"eclairage-public",url:"/electricite/eclairage-public/",t:"Éclairage public",st:"res",parent:"electricite",m:["collectivites"],
+  role:"Page à créer seulement si Fauché confirme l'offre et l'entité qui la porte. Aucune réalisation ne cite l'éclairage public. Une publication existe sur l'éclairage sportif (« Fauché éclaire l'AzurArena »). entra.fr déclare l'éclairage urbain (Île-de-France) ; lumelec.fr ne le déclare pas.",
+  req:[["entreprise éclairage public","70","70, 50, 40"]],serp:"Prestataires et fabricants (Ragni, GEG, SDEL)",geo:"Nationale",
+  plus:"Les pages en face sont courtes et peu prouvées."},
+ {id:"genie-climatique",url:"/genie-climatique/",t:"Génie climatique",st:"keep",m:["tertiaire","sante","logement"],
+  role:"Priorité 2 du brief. La recherche ressemble à une recherche de proximité : la page présente le métier et renvoie vers les agences CVC de chaque région, qui portent le local.",
+  req:[["entreprise CVC","480","590, 390, 480"],["entreprise génie climatique","210","170, 110, 210"]],serp:"Prestataires, en partie toulousains ; bloc de résultats locaux dans les deux villes",geo:"Indices locaux, non conclu",
+  plus:"Aujourd'hui la page compte environ 250 mots de contenu propre et une seule preuve nommée (Région Sud) ; en face, Climax et CEME nomment clients, qualifications (RGE) et chantiers."},
+ {id:"maintenance",url:"/maintenance/",t:"Maintenance",st:"keep",subs:["ponts-roulants","depannage"],m:["tertiaire","industrie","sante","energie-nucleaire"],
+  role:"Page du contrat de maintenance multitechnique. Elle rattache les deux pages d'offre aujourd'hui isolées (ponts roulants, dépannage).",
+  req:[["maintenance multitechnique","170","140, 110, 210"]],serp:"Prestataires (Veolia, UGAP, Derichebourg, Hervé, Eiffage)",geo:"Non conclu",
+  plus:"Manquent les étapes du contrat et un client nommé, que Veolia, Samsic et B3T décrivent de bout en bout."},
+ {id:"ponts-roulants",url:"/fauche-maintenance-ponts-roulants-levage/",t:"Maintenance des ponts roulants et du levage",st:"att",parent:"maintenance",sis:"depannage",m:["industrie"],
+  role:"Page existante, adresse conservée, aujourd'hui liée deux fois. Elle entre au menu « Offres spécifiques » à la place du doublon « Maintenance », et sous Maintenance dans le fil d'Ariane.",
+  cand:1,req:[["maintenance ponts roulants","n.c.","—"],["entreprise de levage","210","210, 140, 170"]],serp:"« maintenance ponts roulants » : 1re position estimée en septembre (SE Ranking), seule requête hors marque du haut du classement. « Entreprise de levage » : non relue",geo:"—",plus:"La refonte part de la requête où la page est déjà en tête ; « entreprise de levage » peut désigner un autre besoin (location, transport)."},
+ {id:"depannage",url:"/offre-depannage/",t:"Dépannage",st:"att",parent:"maintenance",sis:"ponts-roulants",m:["tertiaire","industrie"],
+  role:"Page existante, aucun lien entrant aujourd'hui. Elle entre au menu « Offres spécifiques », sous Maintenance dans le fil d'Ariane, et mène au parcours de demande de ledepannageparfauche.com (site hors référencement).",
+  req:[],serp:"—",geo:"—",plus:""},
+ {id:"nucleaire",url:"/nucleaire/",t:"Nucléaire",st:"keep",m:["energie-nucleaire","industrie"],
+  role:"Page de l'expertise nucléaire. La demande mêle emploi, information et prestataires.",
+  req:[["maintenance nucléaire","90","90, 40, 50"]],serp:"Emploi, information, prestataires (Framatome, Dalkia, Onet)",geo:"Non conclu",
+  plus:"Golfech et les qualifications sont présents ; aucun exploitant client n'est nommé, quand Dalkia, Framatome et Onet citent les exploitants (EDF, CEA, Orano ou Areva, Andra)."},
+ {id:"eco-energies",url:"/eco-energies/",t:"Éco-énergies",st:"keep",subs:["ombrieres"],m:["energies-renouvelables","tertiaire","industrie"],
+  role:"Adresse conservée ; un renommage se décide une fois les données de Search Console disponibles. Viser le contrat de performance énergétique seulement si Fauché vend un contrat avec garantie de résultat.",
+  req:[["contrat de performance énergétique","390","260, 110, 210"]],serp:"Guides et prestataires (Alterea, Dalkia, GreenFlex)",geo:"Nationale",
+  plus:"La page ne nomme ni le contrat de performance énergétique, ni la garantie de résultat, ni le décret tertiaire, trois sujets traités par les trois pages de prestataires lues (Alterea, GreenFlex, Dalkia). « Décret tertiaire » (5 400) : article d'explication qui renvoie ici, pas de page de vente."},
+ {id:"ombrieres",url:"/eco-energies/ombrieres-photovoltaiques/",t:"Ombrières photovoltaïques",st:"new",parent:"eco-energies",m:["energies-renouvelables","transport"],
+  role:"Réalisations publiées : aire de covoiturage de Loire Forez, extension de parking équipée d'une ombrière photovoltaïque.",
+  req:[["ombrière photovoltaïque parking","90","70, 50, 70"]],serp:"Réglementation (loi APER, service-public), quelques installateurs",geo:"Semi-nationale",
+  plus:"Le chiffre de l'audit (480) venait d'un autre outil et ne se compare pas."},
+ {id:"process-automatismes-industriels",url:"/process-automatismes-industriels/",t:"Process et automatismes industriels",st:"keep",m:["industrie"],
+  role:"Page existante, conservée. Elle renvoie vers fadilec-groupe.fr, site gardé de la société spécialisée (automatismes, robotique).",
+  cand:1,req:[["automatisme industriel (écart important entre outils : 10 dans un autre outil)","720","480, 390, 480"]],serp:"Non relue",geo:"—",plus:""},
+ {id:"digital-smart-solutions",url:"/digital-smart-solutions/",t:"Digital et smart solutions",st:"keep",m:["tertiaire"],
+  role:"Page existante, conservée.",
+  cand:1,req:[["smart building","880","720, 320, 480"],["gestion technique du bâtiment","320","210, 170, 210"]],serp:"Non relue",geo:"—",plus:""},
+ {id:"tous-corps-etat",url:"/tous-corps-etat/",t:"Tous corps d'état",st:"keep",m:["tertiaire","logement"],
+  role:"Page existante, conservée. Le menu actuel la lie par une ancienne adresse (/tous-corps-d-etat/) qui redirige : il pointera directement vers l'adresse finale.",
+  cand:1,req:[["entreprise tous corps d'état","590","390, 320, 390"]],serp:"Relue en septembre : surtout de la rénovation pour particuliers (artisans, plateformes de travaux)",geo:"—",plus:"La requête la plus cherchée ne correspond pas au tous corps d'état de Fauché : cible B2B à trouver avant d'écrire la page."}
+];
+const PILOTES = [{"id": "dinan", "nom": "Agence de Dinan – JPF Industries", "ville": "Dinan (22)", "region": "Bretagne", "adr": "ZI – 8 boulevard de Préval, 22105 Dinan", "tel": "02 96 85 88 88", "contact": "M. Foucauld Roussel", "metiers": ["Installations électriques industrielles et tertiaires", "Installations photovoltaïques et IRVE", "Réseaux et télécom", "Distribution", "Dépannages"], "exp": ["electricite", "bornes", "eco-energies", "depannage"], "note": "Blanzat (22/10) : l'agence JPF regroupe aussi Saint-Malo, Pacé et Nantes, et JPF a déjà des supports commerciaux par expertise.", "reals": []}, {"id": "la-fouillouse", "nom": "Fauché Éco-énergies Centre-Est", "ville": "La Fouillouse (42)", "region": "Auvergne-Rhône-Alpes", "adr": "9 allée du Vorzelas, 42480 La Fouillouse", "tel": "04 77 01 03 03", "contact": "M. Frédéric Magat", "metiers": ["Installation photovoltaïque"], "exp": ["eco-energies", "ombrieres"], "note": "", "reals": [["Entreprise Allouis Face InTec", "/realisation/entreprise-allouis-face-intec/"], ["Aire de covoiturage Loire Forez Agglomération", "/realisation/aire-de-covoiturage-loire-forez-agglomeration/"], ["Brasserie Ninkasi", "/realisation/brasserie-ninkasi-photovoltaique/"]]}, {"id": "vitrolles", "nom": "Fauché Maintenance Provence", "ville": "Vitrolles (13)", "region": "Provence-Alpes-Côte d'Azur", "adr": "6 rue de Madrid – ZI Les Estroublans, 13127 Vitrolles", "tel": "04 13 94 32 14", "contact": "M. Laurent Minana", "metiers": ["Maintenance, dépannages et travaux associés", "Tertiaire et industrie", "Courants forts et faibles, multitechnique, chauffage, ventilation, climatisation"], "exp": ["maintenance", "depannage", "genie-climatique"], "note": "", "reals": [["Assistance publique - Hôpitaux de Marseille (AP-HM)", "/realisation/assistance-publique-hopitaux-de-marseille-ap-hm/"], ["Les Carrés du Golf — Parc Pichaury", "/realisation/les-carres-du-golf-parc-pichaury/"]]}, {"id": "data-center-idf", "nom": "Fauché Data Center Île-de-France", "ville": "Saint-Germain-en-Laye (78)", "region": "Île-de-France", "adr": "13 rue de Temara, 78100 Saint-Germain-en-Laye", "tel": "", "contact": "M. Alexandre Modola", "metiers": [], "exp": [], "note": "La page actuelle n'affiche ni métier ni numéro. Aucune réalisation data center n'est publiée.", "reals": []}, {"id": "albi", "nom": "Agence LMELEC", "ville": "Albi (81)", "region": "Occitanie", "adr": "9 rue François Arago, 81000 Albi", "tel": "05 63 60 66 49", "contact": "M. Sébastien Peyruse", "metiers": ["Maintenance électricité haute et basse tension, niveaux 1 à 4, multimarques type constructeur", "Monitoring et rétrofit", "Location de postes, cellules, transformateurs"], "exp": ["maintenance", "electricite"], "note": "LMELEC, c'est LM Elec (Albi, Castres) : son site lmelec.com ne répond plus. La page agence le remplace (intégration proposée).", "reals": []}, {"id": "valence-agen", "nom": "Fauché Nucléaire Atlantique", "ville": "Valence d'Agen (82)", "region": "Occitanie", "adr": "62 impasse Lumières, 82400 Valence d'Agen", "tel": "05 63 39 75 75", "contact": "M. Nicolas Villet", "metiers": ["Électricité industrielle", "Mécanique industrielle", "Maintenance et rétrofit des moyens de levage"], "exp": ["nucleaire", "electricite", "ponts-roulants"], "note": "", "reals": [["Maintenance des éléments d’obturation des trémies des pompes primaires d’un bâtiment réacteur", "/realisation/maintenance-elements-obturation-tremies-pompes-primaires-batiment-reacteur/"], ["Maintenance des équipements HTA/BT durant un arrêt de tranche en CNPE", "/realisation/maintenance-equipements-hta-bt-arret-tranche-cnpe/"], ["Rénovation électromécanique du pont de la salle des machines", "/realisation/renovation-electromecanique-pont-salle-machines-cnpe/"], ["Rénovation des éclairages d’une centrale nucléaire de production d’électricité", "/realisation/renovation-des-eclairages-dune-centrale-nucleaire-de-production-delectricite/"], ["Remise en état de marche d’une grue portuaire", "/realisation/remise-etat-marche-grue-portuaire/"], ["Maintenance des moyens de levage en Centrale Nucléaire de Production d’Électricité", "/realisation/maintenance-moyen-levage-cnpe/"], ["Maintenance et exploitation du pont polaire du bâtiment réacteur en CNPE", "/realisation/maintenance-pont-polaire-reacteur-cnpe/"], ["Usine du barrage de Sarrans", "/realisation/usine-du-barrage-de-sarrans/"], ["Centrale nucléaire de Golfech", "/realisation/centrale-nucleaire-de-golfech/"]]}, {"id": "perpignan", "nom": "Fauché Perpignan", "ville": "Perpignan (66)", "region": "Occitanie", "adr": "105 rue des Frères-Voisin, 66000 Perpignan", "tel": "04 68 56 67 32", "contact": "M. Stéphane Hulin", "metiers": ["Installations électriques courants forts et faibles", "Gestion de process et automatismes", "Maintenance industrielle"], "exp": ["electricite", "process-automatismes-industriels", "maintenance"], "note": "", "reals": []}];
+const E = Object.fromEntries(EXP.map(e=>[e.id,e]));
+const M = Object.fromEntries(MARCHES.map(m=>[m.id,m]));
+const TOP = EXP.filter(e=>!e.parent);
+
+const esc = s => String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const badge = k => `<span class="badge ${S[k][1]}">${S[k][0]}</span>`;
+const ph = (lbl) => `<div class="img">${esc(lbl)}</div>`;
+function note(o){
+  const rows = (o.req||[]).map(r=>`<tr><td>${esc(r[0])}</td><td class="vol">${r[1]}</td><td class="vol">${r[2]}</td></tr>`).join("");
+  return `<aside class="note" aria-label="Note Brique Lab"><div class="tag">Note Brique Lab · pourquoi cette page</div>
+  <h4>${o.title}</h4><p>${o.role}</p>
+  ${rows?`<div class="scroll"><table><tr><th>${o.cand?"Requête candidate, page Google à lire":"Requête visée"}</th><th>Recherches / mois</th><th>3 derniers mois</th></tr>${rows}</table></div>`:""}
+  <dl>${o.serp?`<dt>Première page Google</dt><dd>${o.serp}</dd>`:""}${o.geo?`<dt>Géographie</dt><dd>${o.geo}</dd>`:""}
+  ${o.st?`<dt>Statut</dt><dd>${badge(o.st)}${o.url?` <span class="vol">${esc(o.url)}</span>`:""}</dd>`:""}
+  ${o.links?`<dt>Liens produits</dt><dd>${o.links}</dd>`:""}${o.plus?`<dt>À retenir</dt><dd>${o.plus}</dd>`:""}</dl></aside>`;
+}
+const realCards = (n, lbl) => Array.from({length:n},(_,i)=>`<a class="card" href="#realisation">${ph("Photo du chantier")}<div class="bd"><div class="meta">${lbl||"Marché · Ville · 2025"}</div><h3>Réalisation lorem ipsum ${i+1}</h3><span class="go">Voir la réalisation →</span></div></a>`).join("");
+const agenceList = (eid) => { const pil = PILOTES.filter(a=>!eid||a.exp.includes(eid)); const regs=[...new Set(pil.map(a=>a.region))]; const fill=["Occitanie","Nouvelle-Aquitaine","Auvergne-Rhône-Alpes"].filter(r=>!regs.includes(r)).slice(0,Math.max(0,3-regs.length)); return `<div class="cols">${regs.map(r=>`<div class="region"><h3>${esc(r)}</h3><ul class="arrows">${pil.filter(a=>a.region===r).map(a=>`<li><a href="#pilote-${a.id}">${esc(a.nom)}</a> <span class="badge b-map" style="font-size:10px">fiche remplie</span></li>`).join("")}<li><a href="#agence">Fauché Lorem</a></li></ul></div>`).join("")}${fill.map(r=>`<div class="region"><h3>${r}</h3><ul class="arrows"><li><a href="#agence">Fauché Lorem</a></li><li><a href="#agence">Fauché Ipsum</a></li></ul></div>`).join("")}</div>`; };
+const contactBand = () => `<section class="blk blue"><div class="wrap contact"><div>${tag("Conversion")}<h2>Un projet ? Parlons-en.</h2><p>${L}</p></div><div><a class="cta teal" href="#agence">Trouver l'agence la plus proche</a></div></div></section>`;
+const faq = () => `<div>${["Question réelle posée sur Google n°1 ?","Question réelle posée sur Google n°2 ?","Question réelle posée sur Google n°3 ?"].map(q=>`<details class="faq"><summary>${q}</summary><p>${L}</p></details>`).join("")}</div>`;
+const tag = (k,t) => `<span class="seo"><b>${k}</b>${t?" · "+t:""}</span>`;
+const kpis = () => `<div class="kpis">${[["00","chantiers livrés"],["00","agences"],["00 ans","d'expérience"],["00","qualifications"]].map(x=>`<div><strong>${x[0]}</strong><span>${x[1]}</span></div>`).join("")}</div>`;
+const logos = () => `<div class="logos">${["Qualifelec","Qualibat","MASE","IRVE","ISO"].map(x=>`<span>${x}</span>`).join("")}</div>`;
+const brief = (rows) => `<dl class="brief">${rows.map(r=>`<div><dt>${r[0]}</dt><dd>${r[1]}</dd></div>`).join("")}</dl>`;
+const crumb = parts => `<div class="wrap crumb">${parts.map((p,i)=>i<parts.length-1?`<a href="#${p[1]}">${esc(p[0])}</a> › `:esc(p[0])).join("")}</div>`;
+
+function vExpertise(e){
+  const parent = e.parent && E[e.parent];
+  const subs = (e.subs||[]).map(id=>E[id]);
+  const crumbs = [["Accueil","accueil"]].concat(parent?[[parent.t,"exp-"+parent.id]]:[]).concat([[e.t,""]]);
+  const links = parent
+    ? `page parente ; réalisations de la sous-expertise ; agences qui l'opèrent ; ${e.sis?"une page sœur dans le texte ; ":""}contact`
+    : `ses sous-pages ; 3 à 6 réalisations de l'expertise ; agences qui l'opèrent, par région ; 2 à 4 marchés ; contact`;
+  return `${crumb(crumbs)}<div class="wrap">${note({title:(parent?"Sous-expertise · ":"Expertise · ")+e.t,role:e.role,req:e.req,cand:e.cand,serp:e.serp,geo:e.geo,st:e.st,url:e.url,links,plus:e.plus})}</div>
+  <div class="hero${parent?" small":""}">${tag("H1","requête principale")}<div class="wrap"><h1>${esc(e.t)}</h1><p>${L}</p></div><span class="ph-tag">Photo pleine largeur · métier en situation</span></div>
+  <div class="wrap" style="padding-top:28px">${tag("GEO","réponse courte et faits vérifiables")}${brief([["Ce que nous faisons","Lorem ipsum dolor"],["Pour qui","Industrie, tertiaire…"],["Où","00 agences, 00 régions"],["Qualifications","Lorem, ipsum"]])}</div>
+  <section class="blk alt"><div class="wrap">${tag("Arguments","prestations, liens vers les sous-pages")}<h2>${subs.length?"Nos prestations":"Ce que nous faisons"}</h2>
+   ${subs.length?`<div class="grid">${subs.map(s=>`<a class="card" href="#exp-${s.id}">${ph("Visuel de la prestation")}<div class="bd">${badge(s.st)}<h3>${esc(s.t)}</h3><p class="lorem">${L.slice(0,90)}…</p><span class="go">Découvrir →</span></div></a>`).join("")}</div>`:""}
+   <div class="cols" style="margin-top:${subs.length?28:0}px"><div><h3 style="color:var(--black)">Lorem ipsum</h3><ul class="arrows"><li>Prestation lorem ipsum</li><li>Prestation dolor sit amet</li><li>Prestation consectetur</li><li>Prestation adipiscing elit</li></ul></div><div><h3 style="color:var(--black)">Dolor sit amet</h3><ul class="arrows"><li>Prestation lorem ipsum</li><li>Prestation dolor sit amet</li><li>Prestation consectetur</li></ul></div><div><p class="lorem">${L2}</p></div></div>
+  </div></section>
+  <section class="blk"><div class="wrap">${tag("Preuves","chiffres clés")}${kpis()}</div></section>
+  <section class="blk"><div class="wrap">${tag("Preuves · E-E-A-T","expérience : chantiers et clients nommés")}<h2>Nos réalisations en ${esc(e.t.toLowerCase())}</h2><p class="lorem">Réalisations rattachées à cette expertise par la nouvelle donnée « expertise ».</p><div class="grid g3" style="margin-top:18px">${realCards(parent?3:6, "Client · Ville · 2025")}</div></div></section>
+  <section class="blk alt"><div class="wrap">${tag("Confiance · E-E-A-T","qualifications et certifications")}<h2>Qualifications</h2>${logos()}</div></section>
+  <section class="blk teal"><div class="wrap">${tag("Maillage","marchés")}<h2>Les marchés que nous servons</h2><div class="chips">${(e.m||[]).map(id=>`<a class="chip" href="#marche-${id}">${esc(M[id].t)}</a>`).join("")}</div></div></section>
+  <section class="blk"><div class="wrap">${tag("Maillage local","agences qui opèrent l'expertise")}<h2>Nos agences en ${esc(e.t.toLowerCase())}</h2><p class="lorem">Seules les agences qui opèrent vraiment cette expertise apparaissent, groupées par région.</p><div style="margin-top:18px">${agenceList(e.id)}</div>
+  ${e.sis?`<p style="margin-top:24px">À lire aussi : <a href="#exp-${e.sis}" style="color:var(--black);font-weight:800">${esc(E[e.sis].t)}</a></p>`:""}
+  ${parent?`<p style="margin-top:12px"><a href="#exp-${parent.id}" style="color:var(--g600);font-weight:800">← Retour à ${esc(parent.t)}</a></p>`:""}</div></section>
+  <section class="blk alt"><div class="wrap">${tag("GEO","questions réelles posées sur Google")}<h2>Questions fréquentes</h2>${faq()}</div></section>
+  ${contactBand()}`;
+}
+
+function vMarche(m){
+  return `${crumb([["Accueil","accueil"],["Marchés","marches"],[m.t,""]])}<div class="wrap">${note({title:"Marché · "+m.t,role:`Remplace les pages de domaine : ${esc(m.dom)}. Chacune redirige ici (301). La page regroupe les preuves d'un secteur et renvoie vers les expertises mobilisées. Aucune requête décisive relevée : son rôle est le maillage et la preuve. Les réalisations sont à reclasser avant de remplir la page : aujourd'hui, celles de logement, de santé et de collectivités sont toutes aussi classées en « immobilier ».`,st:"nouv",url:"/marches/"+m.id+"/",links:"expertises concernées ; toutes les réalisations du marché ; index des marchés",plus:`${m.n} réalisations publiées ; une réalisation rattachée à plusieurs domaines compte dans chaque marché concerné. Ce compte ne dit rien de la part du marché dans l'activité.${m.id==="tertiaire"?" Le domaine « immobilier » mêle des projets très divers : tri réalisation par réalisation.":""}`})}</div>
+  <div class="hero small">${tag("H1","secteur")}<div class="wrap"><h1>${esc(m.t)}</h1><p>${L}</p></div><span class="ph-tag">Photo pleine largeur · secteur</span></div>
+  <section class="blk"><div class="wrap cols"><div>${tag("Arguments","enjeux du secteur")}<h2>Les enjeux du secteur</h2><p class="lorem">${L} ${L2}</p></div><div>${tag("Maillage","expertises")}<h2>Expertises mobilisées</h2><ul class="arrows">${m.exp.map(id=>`<li><a href="#exp-${id}">${esc(E[id].t)}</a></li>`).join("")}</ul></div></div></section>
+  <section class="blk alt"><div class="wrap">${tag("Preuves · E-E-A-T","réalisations du secteur")}<h2>Nos réalisations · ${m.n}</h2><div class="grid g3">${realCards(Math.min(6,m.n), m.t+" · Ville · 2025")}</div><p style="margin-top:18px"><a class="cta ghost" href="#realisations">Voir les ${m.n} réalisations</a></p></div></section>
+  <section class="blk"><div class="wrap">${tag("GEO","questions du secteur")}<h2>Questions fréquentes</h2>${faq()}<p style="margin-top:18px"><a href="#marches" style="color:var(--g600);font-weight:800">← Tous les marchés</a></p></div></section>
+  ${contactBand()}`;
+}
+
+function vMarches(){
+  return `${crumb([["Accueil","accueil"],["Marchés",""]])}<div class="wrap">${note({title:"Index des marchés",role:"Nouvelle page. Les 37 domaines actuels (32 pages indexables qui ne reçoivent aucun lien) deviennent huit marchés, qui reprennent les marchés du brief et les familles de marchés d'Equans, Eiffage et Idex. Proposition à valider avec les métiers ; le nombre reste ouvert.",st:"nouv",url:"/marches/",links:"les huit pages de marché",plus:"Data centers et défense : aucune réalisation publiée ; agences spécialisées existantes, à instruire avec Fauché."})}</div>
+  <div class="hero small"><div class="wrap"><h1>Nos marchés</h1><p>${L}</p></div></div>
+  <section class="blk"><div class="wrap"><div class="grid">${MARCHES.map(m=>`<a class="card" href="#marche-${m.id}">${ph("Photo du secteur")}<div class="bd"><h3>${esc(m.t)}</h3><div class="meta">${m.n} réalisations</div><span class="go">Découvrir →</span></div></a>`).join("")}</div></div></section>`;
+}
+
+function vAnnuaire(){
+  const regs = ["Occitanie","Nouvelle-Aquitaine","Auvergne-Rhône-Alpes","Île-de-France","Bretagne","Provence-Alpes-Côte d'Azur","Pays de la Loire","Grand Est","Hauts-de-France"];
+  return `${crumb([["Accueil","accueil"],["Fauché en France",""]])}<div class="wrap">${note({title:"Annuaire · porte d'entrée des 170 agences",role:"Aujourd'hui, 130 agences sur 170 ne reçoivent aucun lien : la carte ne crée le lien qu'après un clic, et Google ne clique pas. L'annuaire liste chaque agence par un lien visible, par région administrative puis par département. Il demande une donnée nouvelle : la localisation de l'agence. L'actuel classement « région » regroupe des entités du groupe.",st:"keep",url:"/fauche-en-france/",links:"les 170 agences, chacune par un lien HTML visible sans clic sur la carte",plus:"Les 14 pages /region/ et 5 /type-agence/ redirigent (301) vers l'annuaire ou sa région."})}</div>
+  <div class="hero small"><div class="wrap"><h1>Fauché en France</h1><p>170 implantations. ${L.slice(0,60)}…</p></div></div>
+  <section class="blk"><div class="wrap">${tag("Maillage local","exemples remplis")}<p style="color:var(--g500);font-size:14px;margin:0">Dans la liste ci-dessous, les agences en clair ouvrent une fiche remplie avec les données réelles (les 7 pilotes). Les autres ouvrent le gabarit.</p></div></section>
+  <section class="blk"><div class="wrap"><div class="mapph">Carte des agences (complément)<br>Les liens ci-dessous restent visibles sans cliquer sur la carte</div></div></section>
+  <section class="blk alt"><div class="wrap"><h2>Toutes nos agences par région</h2><div class="cols">${regs.map(r=>`<div class="region"><h3>${r}</h3><h4>Département lorem (00)</h4><ul class="arrows">${PILOTES.filter(a=>a.region===r).map(a=>`<li><a href="#pilote-${a.id}">${esc(a.nom)}</a> <span style="color:var(--g400);font-size:12px">${esc(a.ville)}</span></li>`).join("")}<li><a href="#agence">Fauché Lorem</a></li><li><a href="#agence">Fauché Ipsum</a></li></ul><h4>Département ipsum (00)</h4><ul class="arrows"><li><a href="#agence">Fauché Dolor</a></li></ul></div>`).join("")}</div></div></section>`;
+}
+
+function vAgence(){
+  return `${crumb([["Accueil","accueil"],["Fauché en France","annuaire"],["Occitanie","annuaire"],["Fauché Lorem",""]])}<div class="wrap">${note({title:"Agence · gabarit des 170 pages",role:"Adresses conservées. Les agences pilotes sont enrichies en premier (7 retenues le 22/10, 10 prévues au devis : à confirmer). La page porte le local : ville, zone, expertises opérées, références locales et numéro local.",req:[["« fauché + ville »","non chiffré par ville","—"],["« métier + ville », ex. entreprise électricité toulouse","170","210, 70, 70"]],serp:"À relever ville par ville pendant le développement",geo:"Locale",st:"keep",url:"/agence/<agence>/",links:"expertises opérées ; réalisations de l'agence ; page région de l'annuaire ; 2 à 3 agences du même département",plus:"Champs à fournir par Fauché, agences pilotes d'abord : numéro local, interlocuteur, zone, qualifications (aujourd'hui, le numéro local est écrit en texte, mais les liens cliquables appellent le siège). La fiche PDF de l'agence reste en ligne et est liée depuis la page, qui reprend le même contenu en texte. Données structurées LocalBusiness avec le numéro local."})}</div>
+  <section class="blk"><div class="wrap contact"><div>${tag("H1 · GEO","nom, ville, métiers, coordonnées")}<h1 style="color:var(--black);font-size:40px">Fauché Lorem</h1><p style="font-weight:800;color:var(--g600);margin:6px 0 16px">Électricité · Génie climatique · Maintenance</p>
+   <dl class="facts"><dt>Adresse</dt><dd>00 rue Lorem, 00000 Ville</dd><dt>Zone desservie <span class="q">Q2</span></dt><dd>Département lorem et départements voisins</dd><dt>Clients <span class="q">Q3</span></dt><dd>Industrie, tertiaire, collectivités</dd><dt>Effectif, moyens <span class="q">Q5</span></dt><dd>00 collaborateurs, atelier, véhicules</dd><dt>Contact direct <span class="q">Q7</span></dt><dd>Prénom Nom, responsable d'agence</dd><dt>Horaires <span class="q">Q8</span></dt><dd>Lundi au vendredi, 8 h – 17 h</dd></dl>
+   <p class="tel" style="margin:18px 0 6px">05 00 00 00 00</p><p><a class="cta" href="#agence">Télécharger la fiche de l'agence (PDF)</a></p></div>
+   <div class="card">${ph("Photo de l'agence")}</div></div></section>
+  <section class="blk teal"><div class="wrap">${tag("Arguments · maillage","expertises opérées")}<h2>Expertises opérées par l'agence <span class="q">Q1</span></h2><div class="chips"><a class="chip" href="#exp-electricite">Électricité</a><a class="chip" href="#exp-genie-climatique">Génie climatique</a><a class="chip" href="#exp-maintenance">Maintenance</a></div></div></section>
+  <section class="blk"><div class="wrap">${tag("Preuves · E-E-A-T","références locales")}<h2>Nos références près de chez vous <span class="q">Q4</span></h2><div class="grid g3">${realCards(3,"Client · Ville · 2025")}</div></div></section>
+  <section class="blk alt"><div class="wrap cols"><div>${tag("Confiance · E-E-A-T")}<h2>Qualifications <span class="q">Q6</span></h2><ul class="arrows"><li>Qualification lorem (2025)</li><li>Certification ipsum</li><li>Habilitation dolor</li></ul></div><div>${tag("Maillage local")}<h2>Agences voisines</h2><ul class="arrows"><li><a href="#agence">Fauché Ipsum</a></li><li><a href="#agence">Fauché Dolor</a></li><li><a href="#annuaire">Toutes les agences d'Occitanie</a></li></ul></div></div></section>
+  <section class="blk"><div class="wrap">${tag("Conversion")}<h2>Contactez l'agence</h2><div class="contact"><div><div class="fake-field">Société*</div><div class="fake-field">Nom et prénom*</div><div class="fake-field">Adresse e-mail*</div><div class="fake-field">Téléphone</div></div><div><div class="fake-field" style="border-radius:14px;height:150px">Votre message</div><span class="cta">Envoyer</span></div></div></div></section>`;
+}
+
+
+function vPilotes(){
+  return `${crumb([["Accueil","accueil"],["Fauché en France","annuaire"],["Agences pilotes",""]])}<div class="wrap">${note({title:"Exemples remplis · les 7 agences pilotes",role:"Page de démonstration, sans équivalent sur le futur site : sur fauche.com, ces fiches sont des pages agence comme les autres, atteintes depuis Google, l'annuaire, les expertises, les réalisations et les agences voisines. Les sept implantations retenues par Matthieu Blanzat le 22/10 (dix prévues au devis : à confirmer). Chaque fiche reprend ce que fauche.com publie aujourd'hui pour l'agence, rangé dans le gabarit de demain. Ce qui manque est marqué « à fournir par l'agence ».",st:"keep",url:"/agence/<agence>/",links:"chaque fiche pilote"})}</div>
+  <div class="hero small">${tag("H1")}<div class="wrap"><h1>Agences pilotes</h1><p>Sept fiches remplies avec les informations publiées aujourd'hui.</p></div></div>
+  <section class="blk"><div class="wrap"><div class="grid">${PILOTES.map(a=>`<a class="card" href="#pilote-${a.id}">${ph("Photo de l'agence")}<div class="bd"><div class="meta">${esc(a.ville)}</div><h3>${esc(a.nom)}</h3><div class="meta">${a.reals.length} réalisation${a.reals.length>1?"s":""} publiée${a.reals.length>1?"s":""}</div><span class="go">Voir la fiche →</span></div></a>`).join("")}</div></div></section>`;
+}
+function vPilote(a){
+  const miss = `<span class="badge b-res">à fournir par l'agence</span>`;
+  const voisines = PILOTES.filter(x=>x.region===a.region && x.id!==a.id);
+  return `${crumb([["Accueil","accueil"],["Fauché en France","annuaire"],[a.region,"annuaire"],[a.nom,""]])}<div class="wrap">${note({title:"Agence pilote · "+a.nom,role:"Simulation : les informations viennent de la page actuelle de l'agence sur fauche.com et des réalisations qui lui sont rattachées dans WordPress. Rien n'est inventé ; ce qui manque est marqué. Les repères Q1 à Q8 renvoient aux huit questions du questionnaire aux agences (audit de septembre) : chaque réponse remplit un bloc de la page.",st:"keep",url:"/agence/<agence>/",links:"expertises opérées ; réalisations de l'agence ; région de l'annuaire ; agences voisines",plus:a.note||""})}</div>
+  <section class="blk"><div class="wrap contact"><div>${tag("H1 · GEO","nom, ville, métiers, coordonnées")}<h1 style="color:var(--black);font-size:40px">${esc(a.nom)}</h1><p style="font-weight:800;color:var(--g600);margin:6px 0 16px">${a.exp.length?a.exp.map(id=>esc(E[id].t)).join(" · "):"Expertises à fournir par l'agence"}</p>
+   <dl class="facts"><dt>Adresse</dt><dd>${esc(a.adr)}</dd><dt>Zone desservie <span class="q">Q2</span></dt><dd>${miss}</dd><dt>Clients <span class="q">Q3</span></dt><dd>${miss}</dd><dt>Effectif, moyens <span class="q">Q5</span></dt><dd>${miss}</dd><dt>Contact direct <span class="q">Q7</span></dt><dd>${esc(a.contact)} <span style="color:var(--g400);font-size:12px">(publié aujourd'hui, à confirmer)</span></dd><dt>Horaires <span class="q">Q8</span></dt><dd>${miss}</dd></dl>
+   <p class="tel" style="margin:18px 0 6px">${a.tel?esc(a.tel):"Numéro "+miss}</p><p style="font-size:13px;color:var(--g500);margin:0 0 12px">Lien d'appel vers ce numéro local (aujourd'hui, le lien cliquable appelle le siège)</p><p><a class="cta" href="#pilote-${a.id}">Télécharger la présentation de l'agence (PDF)</a></p></div>
+   <div class="card">${ph("Photo de l'agence")}</div></div></section>
+  <section class="blk teal"><div class="wrap">${tag("Arguments · maillage","métiers publiés, reliés aux expertises")}<h2>Ce que fait l'agence <span class="q">Q1</span></h2>
+   ${a.metiers.length?`<ul class="arrows">${a.metiers.map(m=>`<li>${esc(m)}</li>`).join("")}</ul>`:`<p>${miss} La page actuelle ne liste aucun métier.</p>`}
+   <div class="chips" style="margin-top:14px">${a.exp.map(id=>`<a class="chip" href="#exp-${id}">${esc(E[id].t)}</a>`).join("")}</div></div></section>
+  <section class="blk"><div class="wrap">${tag("Preuves · E-E-A-T","réalisations rattachées à l'agence")}<h2>Nos références près de chez vous <span class="q">Q4</span></h2>
+   ${a.reals.length?`<ul class="arrows">${a.reals.map(r=>`<li><a href="#realisation">${esc(r[0])}</a> <span style="color:var(--g400);font-size:13px">${esc(r[1])}</span></li>`).join("")}</ul>`:`<p>Aucune réalisation publiée n'est rattachée à cette agence. ${miss} (deux ou trois chantiers présentables).</p>`}</div></section>
+  <section class="blk alt"><div class="wrap cols"><div>${tag("Confiance · E-E-A-T")}<h2>Qualifications <span class="q">Q6</span></h2><p>${miss} (avec leur date)</p></div><div>${tag("Maillage local")}<h2>Agences voisines</h2><ul class="arrows">${voisines.map(v=>`<li><a href="#pilote-${v.id}">${esc(v.nom)}</a></li>`).join("")}<li><a href="#annuaire">Toutes les agences de la région ${esc(a.region)}</a></li></ul></div></div></section>
+  <section class="blk"><div class="wrap">${tag("GEO","questions locales")}<h2>Questions fréquentes</h2>${faq()}</div></section>
+  <section class="blk"><div class="wrap">${tag("Conversion")}<h2>Contactez l'agence</h2><div class="contact"><div><div class="fake-field">Société*</div><div class="fake-field">Nom et prénom*</div><div class="fake-field">Adresse e-mail*</div><div class="fake-field">Téléphone</div></div><div><div class="fake-field" style="border-radius:14px;height:150px">Votre message</div><span class="cta">Envoyer</span></div></div></div></section>`;
+}
+
+function vRealisations(){
+  return `${crumb([["Accueil","accueil"],["Réalisations",""]])}<div class="wrap">${note({title:"Index des réalisations",role:"Index filtrable par expertise, marché et région. Les 99 réalisations publiées gagnent un champ « expertise » : c'est lui qui les fait apparaître sur les pages d'expertise et de marché.",st:"keep",url:"/realisations/",links:"chaque réalisation ; filtres vers les expertises et les marchés"})}</div>
+  <div class="hero small"><div class="wrap"><h1>Nos réalisations</h1><p>${L.slice(0,80)}…</p></div></div>
+  <section class="blk"><div class="wrap"><div class="chips" style="margin-bottom:12px">${TOP.slice(0,6).map(e=>`<a class="chip" href="#exp-${e.id}">${esc(e.t)}</a>`).join("")}</div><div class="chips" style="margin-bottom:24px">${MARCHES.slice(0,5).map(m=>`<a class="chip" href="#marche-${m.id}">${esc(m.t)}</a>`).join("")}</div><div class="grid g3">${realCards(9)}</div></div></section>`;
+}
+
+function vRealisation(){
+  return `${crumb([["Accueil","accueil"],["Réalisations","realisations"],["Réalisation lorem ipsum",""]])}<div class="wrap">${note({title:"Réalisation · gabarit des 99 pages",role:"Adresses conservées. La réalisation devient la preuve qui circule : elle apparaît sur son agence, son expertise et son marché. Aujourd'hui, 94 réalisations sur 99 lient leur agence, aucune ne lie un domaine, aucune agence ne lie ses réalisations.",st:"keep",url:"/realisation/<realisation>/",links:"son agence ; son ou ses expertises ; son marché ; 2 à 3 réalisations de la même expertise"})}</div>
+  <div class="hero">${tag("H1","client et chantier")}<div class="wrap"><h1>Réalisation lorem ipsum</h1><p>Client · Ville · 2025</p></div><span class="ph-tag">Photo du chantier</span></div>
+  <section class="blk"><div class="wrap cols"><div>${tag("Preuves · E-E-A-T","expérience")}<h2>Le projet</h2><p class="lorem">${L} ${L2}</p><h2 style="margin-top:24px">Ce que nous avons fait</h2><ul class="arrows"><li>Lot lorem ipsum</li><li>Lot dolor sit amet</li><li>Lot consectetur</li></ul></div>
+  <div>${tag("GEO · maillage","faits et liens")}<dl class="facts"><dt>Client</dt><dd>Client lorem</dd><dt>Lieu</dt><dd>Ville (00)</dd><dt>Date</dt><dd>2025</dd><dt>Agence</dt><dd><a href="#agence">Fauché Lorem</a></dd><dt>Expertises</dt><dd><a href="#exp-electricite">Électricité</a>, <a href="#exp-surete">Sûreté</a></dd><dt>Marché</dt><dd><a href="#marche-tertiaire">Tertiaire et immobilier</a></dd></dl></div></div></section>
+  <section class="blk alt"><div class="wrap"><div class="grid">${["Galerie 1","Galerie 2","Galerie 3","Vidéo"].map(x=>`<div class="card">${ph(x)}</div>`).join("")}</div></div></section>
+  <section class="blk"><div class="wrap">${tag("Maillage","même expertise")}<h2>D'autres réalisations en électricité</h2><div class="grid g3">${realCards(3)}</div></div></section>`;
+}
+
+function vRecrutement(){
+  return `${crumb([["Accueil","accueil"],["Travailler chez Fauché",""]])}<div class="wrap">${note({title:"Recrutement · où vont les requêtes d'emploi",role:"Les requêtes d'emploi n'ont pas leur place sur les pages commerciales, mais elles servent le recrutement. Une page par métier sous cette rubrique, si le service RH la valide.",req:[["alternance électricien (selon Google Ads ; 10 dans un autre outil, à relire)","1 600","2 400, 1 600, 1 900"],["électricien industriel (page 1 : emploi et formation)","880","880, 590, 720"],["technicien de maintenance emploi","590","720, 590, 590"],["fauché recrutement","390","390, 260, 390"]],st:"keep",url:"/travailler-chez-fauche/",links:"pages métier ; offres ; agences qui recrutent"})}</div>
+  <div class="hero"><div class="wrap"><h1>Rejoignez-nous</h1><p>${L}</p></div></div>
+  <section class="blk"><div class="wrap"><h2>Nos métiers</h2><div class="grid">${["Électricien industriel","Électricien tertiaire","Technicien de maintenance","Technicien CVC","Alternance"].map(t=>`<a class="card" href="#recrutement">${ph("Portrait métier")}<div class="bd"><span class="badge b-res">Sous réserve RH</span><h3>${t}</h3><span class="go">Voir le métier et les offres →</span></div></a>`).join("")}</div></div></section>`;
+}
+
+function vGroupe(){
+  const soc = [["Lumelec","Site gardé et relié : lumelec.fr","site"],["Fadilec","Site gardé et relié : fadilec-groupe.fr","site"],["JPF Industries","Intégration proposée, en attente de décision · agences : Dinan, Saint-Malo, Pacé, Nantes","pilote-dinan"],["Dubacquié","Intégration proposée","page"],["Bouat Électricité","Intégration proposée","page"],["LM Elec","Intégration proposée (site hors service) · agences : Albi, Castres","pilote-albi"],["EIB Angers","Intégration proposée (site hors service)","page"],["SGEA","À décider avec Fauché","?"],["Entra","À décider avec Fauché","?"],["ETT","À décider avec Fauché","?"],["IECF Pesier","À décider avec Fauché","?"]];
+  return `${crumb([["Accueil","accueil"],["Nous connaître",""]])}<div class="wrap">${note({title:"Nous connaître · bloc « Les sociétés du groupe »",role:"Chaque marque renvoie vers sa page agence, ou vers son propre site si le site est gardé. Pas de page société en doublon des pages agence. Les intégrations se font après la mise en ligne, avec des redirections gardées au moins un an. Les liens à ajouter sur lumelec.fr et fadilec-groupe.fr sont à faire par les équipes qui gèrent ces sites ; nous fournissons le texte et les adresses.",st:"keep",url:"/nous-connaitre/",links:"pages agence des sociétés ; sites gardés (lumelec.fr, fadilec-groupe.fr)",plus:"Lumelec : marque cherchée 720 fois par mois, en tête sur son nom, 181 pages. Fadilec : 140 recherches par mois, activité distincte, site bilingue."})}</div>
+  <div class="hero small"><div class="wrap"><h1>Nous connaître</h1><p>${L}</p></div></div>
+  <section class="blk"><div class="wrap"><p class="lorem">${L} ${L2}</p></div></section>
+  <section class="blk alt"><div class="wrap"><h2>Les sociétés du groupe</h2><div class="grid">${soc.map(s=>`<a class="card" href="${s[2].startsWith("pilote-")?"#"+s[2]:s[2]==="page"?"#agence":"#groupe"}"><div class="img" style="aspect-ratio:3/1">Logo ${esc(s[0])}</div><div class="bd"><h3>${esc(s[0])}</h3><div class="meta">${esc(s[1])}</div><span class="go">${s[2]==="site"?"Visiter le site ↗":(s[2]==="page"||s[2].startsWith("pilote-"))?"Voir les agences →":"Lien à définir"}</span></div></a>`).join("")}</div></div></section>`;
+}
+
+function vAccueil(){
+  return `<div class="wrap">${note({title:"Accueil",role:"Adresse conservée. L'accueil distribue vers les expertises, les marchés, les réalisations et l'annuaire. Le site sert aujourd'hui une balise noindex : début novembre, dans une recherche sans compte connecté, fauche.com n'apparaissait plus en première page sur « fauché » ni sur « fauché toulouse ». À lever avant la mise en ligne, puis contrôler après chaque mise en production.",st:"keep",url:"/",links:"8 expertises ; marchés ; réalisations récentes ; annuaire ; recrutement"})}</div>
+  <div class="hero"><div class="wrap"><h1>Lorem ipsum dolor<br>sit amet consectetur</h1><p>${L}</p><p style="margin-top:20px"><a class="cta teal" href="#annuaire">Trouver une agence</a></p></div><span class="ph-tag">Vidéo ou photo pleine largeur</span></div>
+  <section class="blk"><div class="wrap"><h2>Nos expertises</h2><div class="grid">${TOP.map(e=>`<a class="card" href="#exp-${e.id}">${ph("Visuel métier")}<div class="bd"><h3>${esc(e.t)}</h3><span class="go">Découvrir →</span></div></a>`).join("")}</div></div></section>
+  <section class="blk teal"><div class="wrap"><h2>Nos marchés</h2><div class="chips">${MARCHES.map(m=>`<a class="chip" href="#marche-${m.id}">${esc(m.t)}</a>`).join("")}</div></div></section>
+  <section class="blk"><div class="wrap"><h2>Réalisations récentes</h2><div class="grid g3">${realCards(3)}</div><p style="margin-top:18px"><a class="cta ghost" href="#realisations">Toutes nos réalisations</a></p></div></section>
+  <section class="blk alt"><div class="wrap cols"><div><h2>170 agences en France</h2><p class="lorem">${L}</p><p><a class="cta" href="#annuaire">Voir l'annuaire</a></p></div><div class="mapph">Carte de France</div></div></section>
+  ${contactBand()}`;
+}
+
+function vPlan(){
+  const li = (e) => `<li><a href="#exp-${e.id}">${esc(e.t)}</a>${badge(e.st)}<span class="u">${e.url}</span>${e.subs?`<ul>${e.subs.map(id=>li(E[id])).join("")}</ul>`:""}</li>`;
+  return `<section class="blk"><div class="wrap">
+  <h1 style="color:var(--black);font-size:clamp(30px,4vw,44px)">Plan du site cible</h1>
+  <p class="lorem" style="margin-top:10px">Maquette filaire de fauche.com, présentée le 9 novembre 2026. Chaque page s'ouvre en cliquant dans ce plan ou dans le menu. Les textes sont provisoires. En tête de chaque page, l'encadré orange dit à quoi elle sert et combien de recherches elle vise. Le bouton en bas à droite masque ces notes.</p>
+  <div class="legend">${badge("keep")}${badge("att")}${badge("new")}${badge("res")}${badge("nouv")}</div>
+  <div class="note" style="margin-top:20px"><div class="tag">Lecture des volumes</div><p>Recherches mensuelles estimées par le planificateur de mots-clés de Google Ads : moyenne sur douze mois, puis les trois derniers mois connus, septembre en premier. Ce sont des estimations de la demande sur Google, pas une audience. L'audit de septembre utilisait un autre outil, dont les chiffres ne se comparent pas ligne à ligne.</p></div>
+  <ul class="tree" style="margin-top:20px">
+   <li><a href="#accueil">Accueil</a>${badge("keep")}<span class="u">/</span>
+    <ul>
+     ${TOP.map(li).join("")}
+     <li><a href="#marches">Marchés</a>${badge("nouv")}<span class="u">/marches/</span><ul>${MARCHES.map(m=>`<li><a href="#marche-${m.id}">${esc(m.t)}</a><span class="u">/marches/${m.id}/ · ${m.n} réalisations</span></li>`).join("")}</ul></li>
+     <li><a href="#annuaire">Fauché en France (annuaire)</a>${badge("keep")}<span class="u">/fauche-en-france/</span><ul><li><a href="#agence">Agence</a><span class="u">/agence/&lt;agence&gt;/ · 170 pages</span></li><li><a href="#pilotes">Agences pilotes : 7 fiches simulées avec les données réelles</a></li></ul></li>
+     <li><a href="#realisations">Réalisations</a>${badge("keep")}<span class="u">/realisations/</span><ul><li><a href="#realisation">Réalisation</a><span class="u">/realisation/&lt;realisation&gt;/ · 99 pages</span></li></ul></li>
+     <li><a href="#recrutement">Travailler chez Fauché</a>${badge("keep")}<span class="u">/travailler-chez-fauche/</span></li>
+     <li><a href="#groupe">Nous connaître · sociétés du groupe</a>${badge("keep")}<span class="u">/nous-connaitre/</span></li>
+    </ul></li>
+  </ul></div></section>`;
+}
+
+function route(){
+  const h = (location.hash||"#plan").slice(1);
+  let html;
+  if(h==="plan") html=vPlan();
+  else if(h==="accueil") html=vAccueil();
+  else if(h.startsWith("exp-") && E[h.slice(4)]) html=vExpertise(E[h.slice(4)]);
+  else if(h==="marches") html=vMarches();
+  else if(h.startsWith("marche-") && M[h.slice(7)]) html=vMarche(M[h.slice(7)]);
+  else if(h==="annuaire") html=vAnnuaire();
+  else if(h==="agence") html=vAgence();
+  else if(h==="pilotes") html=vPilotes();
+  else if(h.startsWith("pilote-") && PILOTES.find(a=>a.id===h.slice(7))) html=vPilote(PILOTES.find(a=>a.id===h.slice(7)));
+  else if(h==="realisations") html=vRealisations();
+  else if(h==="realisation") html=vRealisation();
+  else if(h==="recrutement") html=vRecrutement();
+  else if(h==="groupe") html=vGroupe();
+  else html=vPlan();
+  document.getElementById("view").innerHTML=html;
+  document.querySelectorAll("nav.main .open").forEach(x=>x.classList.remove("open"));
+  window.scrollTo(0,0);
+}
+
+function nav(){
+  const n=document.getElementById("nav");
+  const col=ids=>`<div class="col">${ids.map(id=>{const e=E[id];return `<a class="h" href="#exp-${e.id}">${esc(e.t)}</a>${(e.subs||[]).filter(s=>!["ponts-roulants","depannage"].includes(s)).map(s=>`<a class="sub" href="#exp-${s}">${esc(E[s].t)}</a>`).join("")}`}).join("")}</div>`;
+  n.innerHTML=`
+  <div><button class="top" type="button" aria-expanded="false">Expertises ▾</button><div class="drop mega">
+    ${col(["electricite","process-automatismes-industriels"])}${col(["maintenance","genie-climatique"])}${col(["tous-corps-etat","nucleaire"])}
+    <div class="foot"><a href="#plan">Voir le plan du site</a></div></div></div>
+  <div><button class="top" type="button" aria-expanded="false">Marchés <span class="new">nouveau</span> ▾</button><div class="drop">${`<a class="h" href="#marches">Tous les marchés</a>`+MARCHES.map(m=>`<a href="#marche-${m.id}">${esc(m.t)}</a>`).join("")}</div></div>
+  <div><a class="top" href="#realisations">Réalisations</a></div>
+  <div><button class="top" type="button" aria-expanded="false">Offres spécifiques ▾</button><div class="drop"><a class="h" href="#exp-eco-energies">Éco-énergies</a><a class="sub" href="#exp-ombrieres">Ombrières photovoltaïques</a><a class="h" href="#exp-digital-smart-solutions">Digital &amp; Smart Solutions</a><a class="h" href="#exp-ponts-roulants">Ponts roulants et levage</a><a class="h" href="#exp-depannage">Dépannage 24/7</a></div></div>
+  <div><button class="top" type="button" aria-expanded="false">Rejoignez-nous ▾</button><div class="drop"><a href="#recrutement">Fauché recrute 500 personnes en 2026 !</a><a href="#recrutement">Travailler chez Fauché</a><a href="#recrutement">Conseils de nos recruteurs</a><a href="#recrutement">Offres d'emploi</a><a href="#recrutement">Nos métiers (nouveau, sous réserve RH)</a></div></div>
+  <div><a class="top" href="#accueil">Actualités</a></div>
+  <div><button class="top" type="button" aria-expanded="false">À propos ▾</button><div class="drop"><a href="#groupe">Qui sommes-nous ?</a><a href="#groupe">Culture &amp; valeurs</a><a href="#groupe">Gouvernance</a><a href="#groupe">Histoire</a><a href="#groupe">Engagements RSE</a><a href="#annuaire">Fauché en France</a><a href="#groupe">Les sociétés du groupe (nouveau)</a></div></div>`;
+  n.querySelectorAll("button.top").forEach(b=>b.addEventListener("click",ev=>{
+    ev.stopPropagation();const p=b.parentElement;const was=p.classList.contains("open");
+    n.querySelectorAll(".open").forEach(x=>{x.classList.remove("open");x.querySelector("button")?.setAttribute("aria-expanded","false")});
+    if(!was){p.classList.add("open");b.setAttribute("aria-expanded","true")}
+  }));
+  document.addEventListener("click",()=>n.querySelectorAll(".open").forEach(x=>x.classList.remove("open")));
+  document.addEventListener("keydown",ev=>{if(ev.key==="Escape")n.querySelectorAll(".open").forEach(x=>{x.classList.remove("open");x.querySelector("button")?.setAttribute("aria-expanded","false")})});
+}
+
+const tg=document.getElementById("toggle");
+tg.addEventListener("click",()=>{const on=document.body.classList.toggle("hide-notes");tg.textContent=on?"Afficher les notes":"Masquer les notes";tg.setAttribute("aria-pressed",String(on))});
+nav(); route(); window.addEventListener("hashchange",route);
+</script>
+</body></html>
